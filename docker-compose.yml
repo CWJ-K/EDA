@@ -1,0 +1,17 @@
+version: '2'
+services:
+  kaggle:
+    image: kaggle/python
+    container_name: kaggle
+    user: root
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/notebooks
+    command: >
+      bash -c "
+      pip install jupyter_contrib_nbextensions &&
+      pip install jupyter_nbextensions_configurator &&
+      jupyter contrib nbextension install --user &&
+      jupyter notebook --allow-root --no-browser --ip="0.0.0.0" --notebook-dir=/notebooks --NotebookApp.token='' --allow-root
+      "
